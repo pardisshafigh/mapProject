@@ -44,7 +44,7 @@ echo "<div  class= $cssClass style='padding: 20px; width: 80%; margin: 10px auto
 } 
 
 function dd($var){
-    echo "<pre style='color: orange; background-color: #fff; z-index: 999; position: relative; padding: 10px; margin: 10px; border-radius: 5px; border: 3px solid orange;'>";
+    echo "<pre style='direction: ltr; text-align: left; color: orange; background-color: #fff; z-index: 999; position: relative; padding: 10px; margin: 10px; border-radius: 5px; border: 3px solid orange;'>";
     var_dump($var);
     echo "</pre>";
 }

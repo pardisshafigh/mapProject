@@ -217,6 +217,11 @@
 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/scripts.js"></script>
+    <script>
+        <?php if($location): ?>
+            L.marker([<?php echo $location->lat ?>,<?php echo $location->lng ?>]).addTo(map).bindPopup("<?php echo $location->title ?>").openPopup();
+        <?php endif; ?>
+    </script>
 
 </body>
 </html>

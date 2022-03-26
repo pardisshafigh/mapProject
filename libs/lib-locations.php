@@ -1,7 +1,7 @@
 <?php
 function insertLocation($data)
 {
-    global $pdo;
+    $pdo = new PDO("mysql:host=localhost;dbname=7map","root","");
     // validation here
     $sql = "INSERT INTO `locations` (`title`, `lat`, `lng`, `type`) VALUES (:title, :lat, :lng, :typ);";
     $stmt = $pdo->prepare($sql);
@@ -12,7 +12,7 @@ function insertLocation($data)
 
 function getLocations($params = [])
 {
-    global $pdo;
+    $pdo = new PDO("mysql:host=localhost;dbname=7map","root","");
     $condition = '';
     if (isset($params['verified']) && in_array($params['verified'],['0', '1'])) {
        $condition = " where verified = {$params['verified']}";

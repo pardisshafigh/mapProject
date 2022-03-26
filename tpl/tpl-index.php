@@ -20,6 +20,7 @@
         <div class="mapContainer">
             <div id="map"></div>
         </div>
+        <img src="assets/img/current.png" class="currentLoc">
     </div>
     <div class="modal-overlay" style="display: none;">
         <div class="modal">
@@ -166,7 +167,7 @@
         });
 
         // wrap map.locate in a function
-        function locate() {
+        function locate(){
             map.locate({
                 setView: true,
                 maxZoom: defaultZoom
@@ -221,6 +222,11 @@
         <?php if($location): ?>
             L.marker([<?php echo $location->lat ?>,<?php echo $location->lng ?>]).addTo(map).bindPopup("<?php echo $location->title ?>").openPopup();
         <?php endif; ?>
+        $(this).ready(function(){
+            $('img.currentLoc').click(function(){
+                locate();
+            });
+        });
     </script>
 
 </body>

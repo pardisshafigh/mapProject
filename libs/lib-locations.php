@@ -15,7 +15,9 @@ function getLocations($params = [])
     $pdo = new PDO("mysql:host=localhost;dbname=7map","root","");
     $condition = '';
     if (isset($params['verified']) && in_array($params['verified'],['0', '1'])) {
-       $condition = " where verified = {$params['verified']}";
+       $condition = "WHERE verified = {$params['verified']}";
+    }else if (isset($params['keyword'])) {
+        $condition = "WHERE verified = 1 and title LIKE '%{$params['keyword']}%'";
     }
     $sql = "SELECT * FROM ‍‍‍`locations‍‍` $condition";
     // dd($sql);

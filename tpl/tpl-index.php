@@ -15,7 +15,12 @@
 <body>
     <div class="main">
         <div class="head">
-            <input type="text" id="search" placeholder="دنبال کجا می گردی؟">
+            <div class="search-box">
+                <input type="text" id="search" placeholder="دنبال کجا می گردی؟" autocomplete="off">
+                <div class="clear"></div>
+                <div class="search-results" style="display:none">
+                </div>
+            </div>
         </div>
         <div class="mapContainer">
             <div id="map"></div>
@@ -45,9 +50,9 @@
                         <div class="field-title">نوع</div>
                         <div class="field-content">
                             <select name="type" id="l-type">
-                            <?php foreach(locationTypes as $key=>$value): ?>
-                            <option value="<?php echo $key ?>"><?php echo $value ?></option>
-                            <?php endforeach; ?>
+                                <?php foreach (locationTypes as $key => $value) : ?>
+                                    <option value="<?php echo $key ?>"><?php echo $value ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -167,7 +172,7 @@
         });
 
         // wrap map.locate in a function
-        function locate(){
+        function locate() {
             map.locate({
                 setView: true,
                 maxZoom: defaultZoom
@@ -193,7 +198,7 @@
 
     <script>
         $(document).ready(function() {
-            $("form#addLocationForm").submit(function(){
+            $("form#addLocationForm").submit(function() {
                 e.preventDefault(); //prevent form submiting
                 // alert($(this).serialize());
                 var form = $(this);
@@ -202,14 +207,14 @@
                     url: form.attr('action'),
                     method: form.attr('method'),
                     data: form.serialize(),
-                    success: function(response){
+                    success: function(response) {
                         resultTag.html(response);
                     }
                 });
             });
             $('.modal-overlay .close').click(function() {
                 $('.modal-overlay').fadeOut();
-                
+
             });
         });
     </script>
@@ -219,16 +224,29 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/scripts.js"></script>
     <script>
-        <?php if($location): ?>
-            L.marker([<?php echo $location->lat ?>,<?php echo $location->lng ?>]).addTo(map).bindPopup("<?php echo $location->title ?>").openPopup();
+        <?php if ($location) : ?>
+            L.marker([<?php echo $location->lat ?>, <?php echo $location->lng ?>]).addTo(map).bindPopup("<?php echo $location->title ?>").openPopup();
         <?php endif; ?>
-        $(this).ready(function(){
-            $('img.currentLoc').click(function(){
+        $(this).ready(function() {
+            $('img.currentLoc').click(function() {
                 locate();
+            });
+            $('#search').keyup(function() {
+                const input = $(this);
+                const searchResult = $(".search-results");
+                searchResult.html("در حال جست و جو...");
+                $.ajax({
+                    url: '<?php echo BASE_URL . 'process/search.php' ?>',
+                    method: 'POST',
+                    data: {keyword: input.val()},
+                    success: function(response) {
+                        searchResult.slideDown().html(response);
+                    }
+                });
             });
         });
     </script>
 
 </body>
-</html>
 
+</html>

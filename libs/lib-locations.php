@@ -31,7 +31,7 @@ function getLocations($params = [])
 
 function getLocation($id)
 {
-    global $pdo;
+    $pdo = new PDO("mysql:host=localhost;dbname=7map","root","");
     $sql = "SELECT * FROM ‍‍‍`locations‍‍` where id=:id";
     // dd($sql);
     $stmt= $pdo->prepare($sql);
@@ -43,7 +43,7 @@ function getLocation($id)
 
 function toggleStatus($id)
 {
-    global $pdo;
+    $pdo = new PDO("mysql:host=localhost;dbname=7map","root","");
     $sql = "UPDATE locations SET verified = 1 - verified WHERE id = :id";
     // dd($sql);
     $stmt= $pdo->prepare($sql);

@@ -119,7 +119,7 @@ use Hekmatinasser\Verta\Verta;
                 <button class="statusToggle <?php echo $loc->verified ? 'active': '' ?>" data-loc='<?php echo $loc->id ?>'>
                 تایید
                 </button> 
-                <button class="preview" data-loc='<?= $loc->id ?>'>👁️‍🗨️</button> 
+                <button class="preview" data-loc='<?php echo $loc->id ?>'>👁️‍🗨️</button> 
             </td>
         </tr>
         <?php endforeach; ?>        
